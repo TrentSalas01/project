@@ -1,0 +1,112 @@
+{% extends "layout.html" %} {% block content %}
+{% if community == None %}
+<h2>Sorry, the specified community does not exist.</h2>
+<form action="../">
+    <input name="redirect" class="btn btn-outline-secondary" type="submit" value="Return to Home">
+</form>
+{% else %}
+<div class="card-header">
+  <span style="font-size: 2em;">{{ community.name }}</span>
+  <form action="/community/{{ community.url }}" method="post" style="float: right; margin-top: .5em;">
+    {% if community.userHasJoined(current_user) %}
+    <a href="{{url_for('createCollection', community_id=community.id)}}">
+      <input name="newCollection" class="btn btn-outline-info" type="button" value="Create Collection">
+    </a>
+    <input name="join" class="btn btn-outline-danger" type="submit" value="Leave Community">
+    {% else %}
+    <input name="join" class="btn btn-outline-success" type="submit" value="Join Community">
+    {% endif %}
+  </form>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-9 mt-3">
+      <div class="d-grid gap-2 text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h2 class="text-center underline">Recent Collection Items in {{ community.name }}</h2>
+            </div>
+          </div>
+          <div class="row">
+            {% for i in item_iteration %}
+            <div class="col border">
+              <a href="/collections/view/{{ collections[i].id }}"
+                 style="display: block; text-decoration: none; color: black;">
+                <div class="row">
+                  <div class="col"><h3 class="text-center">{{items_to_display[i].name}}</h3></div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="row">
+                      <div class="col">
+                    <img class="img-fluid" src=/static/{{items_to_display[i].photo}} alt="" style="width:5rem;"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">Posted by {{items_to_display[i].getUser().username}} in "{{collections[i].name}}"</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 col-md-12 mt-3" style="padding-bottom: 1.5em;">
+          <div class="row">
+            <div class="col">
+              <div class="text-center border-bottom pb-2">
+                  <h4 class="d-inline-block align-bottom">Recent Posts&nbsp;</h4>
+                  <form action="/community/{{ community.url }}/create_post" class="d-inline-block align-text-top">
+                    <input name="join" class="btn btn-outline-success" type="submit" value="Create Post">
+                  </form>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-around">
+            {% for i in posts_to_display %}
+            <div class="col-11 col-md-5 border mt-5 rounded">
+              <a href="/community/{{ community.url }}/{{ i.id }}"
+                 style="display: block; text-decoration: none; color: black;">
+                <div class="row">
+                  <div class="col">
+                    <h3 class="text-center">
+                      {{i.title}}
+                    </h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <p>{{i.body}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <p class="text-center">Posted by {{i.getAuthor().username}}
+                      {{i.getTimestamp()}}<br>{{i.getCommentCount()}}</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3 mt-3">
+      <div class="row">
+        <div class="col">
+          <h5 class="text-center border-bottom pb-2">Users in this Community</h5>
+          <ul style="list-style-type: none;">
+            {% for i in community.users %}
+            <li><a href="/userCard/{{ i.id }}">{{ i.username }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{%endblock content %}

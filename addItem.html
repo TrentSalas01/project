@@ -1,0 +1,89 @@
+{% extends "layout.html" %} {% block content %}
+
+<style>
+    #mainBox {
+        width: 50%;
+        margin: auto;
+        background-color: PowderBlue;
+        min-height: 100%;
+        border-radius: 25px;
+    }
+
+    #mainBox ul {
+        display: none;
+    }
+
+    #mainBox img {
+        margin-left: 1em;
+        margin-right: 1em;
+        max-height: 22.5em;
+        width: 50%;
+    }
+
+    #mainBox form, h1, img, p {
+        text-align: center;
+    }
+</style>
+
+<br>
+
+<body>
+
+
+<section id="mainBox">
+    <h1>Add item to Collection</h1>
+    <p>Collection: {{collection_origin.name}}</p>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{form.hidden_tag()}}
+        <div class="form-group m-5">
+            {{form.name.label()}}
+            {% if form.name.errors %}
+
+            {{form.name(class="form-control is-invalid")}}
+            {% for error in form.name.errors %}
+            <div class="invalid-feedback">
+                <span>{{error}}</span>
+            </div>
+            {% endfor %}
+            {% else %}
+            {{form.name(class="form-control")}}
+            {% endif %}
+
+        </div>
+        <div class="form-group m-5">
+            {{form.text.label()}}
+            {% if form.text.errors %}
+
+            {{form.text(class="form-control is-invalid")}}
+            {% for error in form.text.errors %}
+            <div class="invalid-feedback">
+                <span>{{error}}</span>
+            </div>
+            {% endfor %}
+            {% else %}
+            {{form.text(class="form-control")}}
+            {% endif %}
+
+        </div>
+
+
+        <div class="form-group m-5">
+            {{form.photo.label()}}
+            {% if form.photo.errors %}
+
+            {{form.photo(class="form-control is-invalid")}}
+            {% for error in form.photo.errors %}
+            <div class="invalid-feedback">
+                <span>{{error}}</span>
+            </div>
+            {% endfor %}
+            {% else %}
+            {{form.photo(class="form-control")}}
+            {% endif %}
+
+        </div>
+        {{form.submit(class="btn btn-outline-primary")}}
+    </form>
+    <br/>
+</section>
+{% endblock content %}

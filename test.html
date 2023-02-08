@@ -1,0 +1,155 @@
+{% extends "layout.html" %} {% block content %}
+<div class="card border-secondary mb-3" style="margin-left: 10px; margin-right: 10px;
+margin-top: 10px;">
+    <div class="card-header">
+        Dashboard
+    </div>
+        {% if currentProfilePic == None %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/default_user.png"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if currentProfilePic == 'lion' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/LION2.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if currentProfilePic == 'eagle' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/EAGLE.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if currentProfilePic == 'zebra' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/ZEBRA2.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if currentProfilePic == 'snake' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/SNAKE.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if currentProfilePic == 'pony' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/PONY.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        <strong>Username:</strong> {{ current_user.username }}<br/>
+        <strong>Email:</strong> {{ current_user.email }}<br/>
+        <strong>Description:</strong><br/>
+        <p style="margin-left: 300px; margin-right: 300px"> {{ current_user.bio }}</p>
+
+    
+        <h2>
+            <a class="btn btn-sm btn-outline-dark" type="button" href="/userCommunities/{{current_user.id}}"> My Communities</a>
+        </h2>
+    </div>
+
+</div>
+
+<div class="card border-secondary mb-3" style="margin-left: 10px; margin-right: 10px;
+    margin-top: 12px;">
+    <div class="card-header bg-primary">
+        <h2>My Posts</h2>
+    </div>
+    {% if users_posts == [] %}
+    <h3 style="text-align: center;">No Posts to Display.</h3>
+    {% endif %}
+    {% for i in users_posts %}
+    <div class="card-body" style="text-align: center;">
+        <div class="card border-primary mb-3" style="max-width: 200rem;">
+            <div class="card-body">
+                <h3>{{ i.title }}</h3>
+                <a> {{ i.body }} </a>
+                <p></p>
+                <a href="/community/{{ i.getCommunity() }}/{{ i.id }}"> Click Here To View Post </a>
+
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+    <div class="card border-secondary mb-3" style="margin-left: 10px; margin-right: 10px;
+    margin-top: 12px;">
+        <div class="card-header bg-primary">
+            <h2>My Collections</h2>
+        </div>
+        {% if users_collections == [] %}
+        <h3 style="text-align: center;">No Collections to Display.</h3>
+        {% endif %}
+        {% for i in users_collections %}
+        <div class="card-body" style="text-align: center;">
+            <div class="card border-primary mb-3" style="max-width: 200rem;">
+                <div class="card-body">
+                    <a href="/collections/view/{{ i.id }}">{{ i.name }}</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="card border-secondary mb-3" style="margin-left: 10px; margin-right: 10px;
+    margin-top: 12px;">
+        <div class="card-header bg-primary">
+            <h2>My Items</h2>
+        </div>
+        {% if users_items == [] %}
+        <h3 style="text-align: center;">No Items to Display.</h3>
+        {% endif %}
+        {% for i in users_items %}
+        <div class="card-body" style="text-align: center;">
+            <div class="card border-primary mb-3" style="max-width: 30rem; margin: auto;">
+                <div class="card-body text center">
+
+                    <a href="/item/{{ i.id }}"><img alt="" src=/static/{{i.photo}} style="width:25rem;"></a>
+                    <p>{{i.name}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {%endblock content %}
+
+</div>

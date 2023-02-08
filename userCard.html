@@ -1,0 +1,81 @@
+{% extends "layout.html" %} {% block content %}
+<div class="card border-secondary mb-3" style="margin-left: 10px; margin-right: 10px;
+margin-top: 10px;">
+    <div class="card-header">
+        {{ userInfo.username }}'s Profile
+    </div>
+        {% if userInfo.profile_picture == None %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/default_user.png"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if userInfo.profile_picture == 'lion' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/LION2.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if userInfo.profile_picture == 'eagle' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/EAGLE.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if userInfo.profile_picture == 'zebra' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/ZEBRA2.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if userInfo.profile_picture == 'snake' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/SNAKE.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        {% if userInfo.profile_picture == 'pony' %}
+        <div class="card-body" style="text-align: center">
+            <p style="text-align: center; margin-top: 10px">
+                <img
+                        height="200px"
+                        src="../static/PONY.PNG"
+                        width="200px"
+                        alt=""
+                />
+            </p>
+        {% endif %}
+        </p>
+        <strong>Username:</strong> {{ userInfo.username }}<br/>
+        <strong>Email:</strong> {{ userInfo.email }}<br/>
+        <strong>Description:</strong><br/>
+        <p style="margin-left: 300px; margin-right: 300px"> {{ userInfo.bio }}</p>
+        {%endblock content %}
+    </div>
+</div>
+##

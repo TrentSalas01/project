@@ -1,0 +1,211 @@
+{% extends "layout.html" %} {% block content %}{% if
+current_user.is_authenticated %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-9 mt-3">
+      <div class="row">
+        <div class="col">
+          <h4 class="text-center border-bottom pb-2">
+            Top Communities / Recent Posts
+          </h4>
+        </div>
+      </div>
+      <div class="row justify-content-around">
+        {% for i in posts%} {% if i.kind == 'collection' %}
+        <a
+          class="col-11 col-md-5 border mt-5 rounded"
+          href="/collections/view/{{ i.id }}"
+          style="text-decoration: none; color: inherit"
+        >
+          <div class="row">
+            <div class="col">
+              <h3 class="text-center">{{i.name}}</h3>
+            </div>
+          </div>
+          <div class="row">
+            {% for x in i.items[:6]%}
+            <div class="col-2 p-2">
+              <img
+                style="max-height: 70px"
+                class="img-fluid"
+                src="/static/{{x.photo}}"
+              />
+            </div>
+            {% endfor %}
+          </div>
+        </a>
+        {%else%}
+        <div class="col-11 col-md-5 border mt-5 rounded">
+          <a
+            style="text-decoration: none; color: inherit"
+            href="/community/{{ i.getCommunity() }}/{{ i.id }}"
+            class="row"
+          >
+            <div class="col">
+              <h3 class="text-center">{{i.title}}</h3>
+            </div>
+          </a>
+          <div class="row">
+            <div class="col">
+              <p>{{i.body}}</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-auto col-lg-6">
+              <p class="text-center mb-0">
+                Posted by {{i.getAuthor().username}} {{i.getTimestamp()}} {{i.getCommentCount()}}
+              </p>
+            </div>
+            <a
+              href="/community/{{i.getCommunity().url}}"
+              style="text-decoration: none; color: inherit"
+              class="col-auto col-lg-6 p-0"
+            >
+              <p class="text-center mb-0">
+                Posted in: {{i.getCommunity().name}}
+              </p>
+            </a>
+          </div>
+        </div>
+        {%endif%} {%endfor%}
+      </div>
+      <div class="row justify-content-around"></div>
+    </div>
+    <div class="col-12 col-md-3 mt-3">
+      <div class="row">
+        <div class="col">
+          <h5 class="text-center border-bottom">My Communities</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            {% for i in usersCommunities%}
+            <a href="/community/{{ i.url }}" class="mt-2">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {{ i.name }}
+
+                <span class="badge badge-primary badge-pill"
+                  >{{ i.memberCount() }}</span
+                >
+              </li>
+            </a>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <h5 class="text-center border-bottom">All Communities</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            {% for i in allCommunities %}
+            <a href="/community/{{ i.url }}" class="mt-2">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {{ i.name }}
+
+                <span class="badge badge-primary badge-pill"
+                  >{{ i.memberCount() }}</span
+                >
+              </li>
+            </a>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col">
+      <h1 class="text-center">Kollekt</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <h3 class="text-center">{{usersCount}} Users</h3>
+    </div>
+    <div class="col-12 col-md-3">
+      <h3 class="text-center">{{communitiesCount}} Communities</h3>
+    </div>
+    <div class="col-12 col-md-3">
+      <h3 class="text-center">{{collectionsCount}} Collections</h3>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <h3 class="text-center">{{postCount}} Posts</h3>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <a href="{{ url_for('login')}}"
+        ><h3 class="text-center" style="font-weight: bold">
+          Log in to have a personalized experience
+        </h3></a
+      >
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 col-lg-6 border-right">
+      <div class="row mt-3">
+        <div class="col">
+          <h5 class="text-center">
+            Here's a list of communities you can join after making an account:
+          </h5>
+        </div>
+      </div>
+      {%for i in sampleCommunities%}
+      <div class="row mt-3 justify-content-center">
+        <div style="background-color: #e3e3e3" class="col-11 rounded-pill">
+          <div class="row">
+            <div class="col"><h1 class="text-center">{{i.name}}</h1></div>
+          </div>
+          <div class="row pl-2">
+            <div class="col"><p>{{i.desc}}</p></div>
+          </div>
+          <div class="row pl-2">
+            <div class="col"><p>{{ i.memberCount() }} Member(s)</p></div>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+    <div class="col-12 col-lg-6 border-left">
+      <div class="row mt-3">
+        <div class="col">
+          <h5 class="text-center">
+            Here's a list of collections our users have made:
+          </h5>
+        </div>
+      </div>
+      {%for i in sampleCollections%}
+      <div class="row mt-3 justify-content-center rounded">
+        <div style="background-color: #e3e3e3" class="col-11 rounded-pill">
+          <div class="row">
+            <div class="col">
+              <h1 class="text-center">{{i.name}}</h1>
+            </div>
+          </div>
+          <div class="row pl-2">
+            <div class="col"><p>{{i.desc}}</p></div>
+          </div>
+          <div class="row pl-2">
+            <div class="col"><p>{{i.likes}}</p></div>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+</div>
+{% endif %} {%endblock content %}

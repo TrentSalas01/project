@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block content %}
+<div class="card mb-3">
+    <h3 class="card-header">Editing a post</h3>
+    <div class="card-body">
+        <div class="card border-secondary mb-3">
+            <div class="d-grid gap-2 text-center">
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col" style="padding-bottom: 1.25em;">
+                            <form action="" method="post" style="display: inline;">
+                                {{ form.hidden_tag() }}
+                                <div class="form-group">
+                                    {{ form.body.label(class="form-control-label") }}
+                                    {% if form.body.errors %}
+                                    {{ form.body(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.body.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.body(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group" style="display: inline;">
+                                    {{ form.submit(class="btn btn-outline-success") }}
+                                </div>
+                            </form>
+                            <form action="/community/{{ community_url }}/{{ post_id }}/delete" style="display: inline;">
+                                <input name="delete" class="btn btn-outline-danger" type="submit" value="Delete...">
+                            </form>
+                            <form action="/community/{{ community_url }}/{{ post_id }}" style="display: inline;">
+                                <input name="delete" class="btn btn-outline-secondary" type="submit" value="Cancel...">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content %}

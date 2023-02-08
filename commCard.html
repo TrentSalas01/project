@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block content %}{% if
+    current_user.is_authenticated %}
+              <h1 class="text-center border-bottom">My Communities</h1>
+            </div>
+          </div>
+              <ul class="list-group" style="margin-left: 20px; margin-right: 20px; margin-top: 10px">
+                {% for i in usersCommunities%}
+                <a href="/community/{{ i.url }}" class="mt-2">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    {{ i.name }}
+    
+                    <span class="badge badge-primary badge-pill"
+                      >{{ i.memberCount() }}</span
+                    >
+                  </li>
+                </a>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+    {% endif %} {%endblock content %}
+    

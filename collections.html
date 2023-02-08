@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends "layout.html" %} {% block content %}
+<style>
+    img {
+        width: 200px;
+    }
+</style>
+<html lang="en">
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="text-center">{{ collection.name }} </h1>
+            <br>
+            <h2 class="text-center"/>{{collection.desc}} </h2>
+            <br>
+            <h3 class="text-center">All items inside this collection</h3>
+            {% if collection.user_id == current_user.id %}
+            <button class="btn btn-outline-primary text-center" type="button"><a
+                    href="{{url_for('addNewCollectionItem', collection_id=collection.id)}}">Add an Item</a></button>
+            {%endif%}
+            <br>
+
+        </div>
+    </div>
+    {% for item in collection.items %}
+    <div class="row justify-content-around">
+        <div class="col-12 col-md-5 border">
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-center">{{item.name}}</h3>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+<!--                    <img class="img-fluid" src='/static/{{item.photo}}' alt=""/>-->
+                    <a href="/item/{{item.id}}"><img src="/static/{{item.photo}}"></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-center"><strong>Description:</strong> {{ item.desc }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</html>
+{% endblock content %}

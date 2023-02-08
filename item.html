@@ -1,0 +1,58 @@
+{% extends "layout.html" %} {% block content %}
+<style>
+    img {
+        margin: auto !important;
+        display: block;
+        width: 400px;
+        height: auto;
+    }
+
+    #mainBox {
+        width: 50%;
+        margin: auto;
+        background-color: PowderBlue;
+        min-height: 100%;
+        border-radius: 25px;
+        text-align:center;
+    }
+
+    #mainBox ul {
+        display: none;
+    }
+
+
+    #mainBox h2, h3, h1, p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+
+
+</style>
+
+<br>
+
+<body>
+
+
+<section id="mainBox">
+    <h1>{{ item.name}}</h1>
+
+    <br>
+    <img src="/static/{{item.photo}}" alt="" class="center"/>
+    <h3><strong><a href="/userCard/{{item.user}}">{{username}}</a></strong></h3>
+
+
+    <h3><strong>Collection:</strong> {{ collectionName }}</h3>
+    <h3><strong>Collection ID:</strong> {{ item.community_id }}</h3>
+    <h3><strong>Description:</strong> {{ item.desc }}</h3>
+
+    {% if item.user == current_user.id %}
+
+    <button class="btn-outline-danger text-center" type="button"><a href="{{url_for('delItem', item_id=item.id)}}">delete item</a></button>
+
+    {% endif %}
+
+
+</section>
+
+{% endblock content %}
